@@ -49,6 +49,7 @@ func run() error {
 	}
 	ctx := context.Background()
 	_, err = llm.Call(ctx, []schema.ChatMessage{
+		schema.SystemChatMessage{Content: "You are an expert devops engineer with a mindset for security. Output clean, secure code that is easy to maintain. You can assume the user already has the necessary dependencies installled."},
 		schema.HumanChatMessage{Content: fmt.Sprintf(prompts[*flagVerbose], strings.Join(flag.Args(), " "))},
 	}, llms.WithStreamingFunc(func(ctx context.Context, chunk []byte) error {
 		fmt.Print(string(chunk))
